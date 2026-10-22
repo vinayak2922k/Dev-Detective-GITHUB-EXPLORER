@@ -69,6 +69,13 @@ The primary objective of Sprint 03 is to master real-world asynchronous JavaScri
 
 ---
 
+## 🌐 Live Demo
+
+🚀 **[Click here to explore Dev-Detective](https://vinayak2922k.github.io/Dev-Detective-GITHUB-EXPLORER/)**
+
+Explore GitHub profiles, discover the latest repositories, and compare developers by their total repository stars.
+
+
 ## 3. Technology Stack & Design Decisions
 
 | Layer | Technology | Rationale |
