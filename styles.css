@@ -257,8 +257,51 @@ body {
 .battle-methodology-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.85rem; color: var(--text-secondary); }
 .battle-methodology-card code { font-family: var(--font-mono); color: var(--accent-cyan); background: var(--bg-surface-elevated); padding: 2px 6px; border-radius: 4px; }
 
-/* Footer & Accessibility */
-.app-footer { border-top: 1px solid var(--border-subtle); background: var(--bg-surface); padding: 1.75rem 1.5rem; margin-top: auto; text-align: center; font-size: 0.85rem; color: var(--text-secondary); }
+/* Footer */
+.app-footer {
+  position: relative; background: var(--bg-surface); border-top: 1px solid var(--border-subtle);
+  padding: 3.5rem 1.5rem 2rem; margin-top: auto;
+}
+.footer-top-accent {
+  position: absolute; top: -1px; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-violet), var(--accent-cyan), transparent);
+  opacity: 0.6; pointer-events: none;
+}
+.footer-container { max-width: var(--container-max); margin: 0 auto; display: flex; flex-direction: column; gap: 2.5rem; }
+.footer-main-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 2.5rem; align-items: flex-start; }
+
+.footer-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; margin-bottom: 0.85rem; width: fit-content; }
+.footer-tagline { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 0.35rem; }
+.footer-supporting-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.85rem; max-width: 380px; }
+.footer-author-badge {
+  display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.25rem 0.65rem;
+  background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full); font-size: 0.75rem; color: var(--text-secondary); font-family: var(--font-mono);
+}
+.author-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-cyan); }
+
+.footer-heading { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 1rem; }
+.footer-links-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-link-btn {
+  background: none; border: none; padding: 0; color: var(--text-secondary); font-family: var(--font-sans);
+  font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; transition: 0.15s;
+}
+.footer-link-btn:hover { color: var(--accent-cyan); transform: translateX(3px); }
+.footer-link-btn:hover svg { color: var(--accent-cyan); }
+
+.footer-tech-col { display: flex; flex-direction: column; gap: 0.4rem; }
+.footer-tech-line { font-size: 0.85rem; color: var(--text-secondary); }
+.footer-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+.footer-pill { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); }
+
+.footer-bottom-bar {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; font-size: 0.825rem; color: var(--text-muted);
+}
+.footer-copyright { font-size: 0.825rem; }
+.footer-api-link { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-secondary); text-decoration: none; font-size: 0.825rem; transition: 0.15s; }
+.footer-api-link:hover { color: var(--accent-cyan); text-decoration: underline; }
+
 :focus-visible { outline: 2px solid var(--accent-violet); outline-offset: 3px; }
 
 /* Responsive */
@@ -276,10 +319,15 @@ body {
   .battle-cards-grid { grid-template-columns: 1fr; }
   .battle-actions-row { flex-direction: column; align-items: stretch; }
   .battle-presets { justify-content: center; }
+
+  .footer-main-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom-bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
 @media (max-width: 480px) {
   .main-content { padding: 1.25rem 1rem 3rem; }
   .profile-card { padding: 1.25rem; }
   .profile-stats-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .app-footer { padding: 2.5rem 1rem 1.5rem; }
 }
+

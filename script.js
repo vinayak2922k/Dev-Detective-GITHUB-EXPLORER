@@ -206,3 +206,40 @@ document.querySelectorAll('.battle-preset-btn').forEach(preset => {
     handleBattleSubmit();
   });
 });
+
+// Footer Navigation & Dynamic Year
+const currentYearSpan = document.getElementById('current-year');
+if (currentYearSpan) {
+  currentYearSpan.textContent = new Date().getFullYear();
+}
+
+document.getElementById('footer-brand-link')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  switchMode('search');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+document.getElementById('footer-link-search')?.addEventListener('click', () => {
+  switchMode('search');
+  searchInput.focus();
+  searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+document.getElementById('footer-link-battle')?.addEventListener('click', () => {
+  switchMode('battle');
+  battleUserA.focus();
+  battleForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+document.getElementById('footer-link-repos')?.addEventListener('click', () => {
+  switchMode('search');
+  const reposSection = document.querySelector('.repos-section');
+  if (reposSection) {
+    reposSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+
+document.getElementById('footer-link-top')?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+

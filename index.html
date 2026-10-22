@@ -309,18 +309,106 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="app-footer">
+    <!-- Enhanced Accessible Footer -->
+    <footer class="app-footer" id="app-footer">
+      <div class="footer-top-accent" aria-hidden="true"></div>
+
       <div class="footer-container">
-        <p class="footer-copy">
-          <strong>Dev-Detective</strong> — Prodesk IT Sprint 03 Assignment: “The API Hunter”. Built with semantic HTML5, modern CSS3, and native JavaScript Fetch API.
-        </p>
-        <div class="footer-meta">
-          <span class="meta-item">No Frameworks</span>
-          <span class="meta-divider">•</span>
-          <span class="meta-item">No Dependencies</span>
-          <span class="meta-divider">•</span>
-          <span class="meta-item">Native Fetch &amp; Promises</span>
+        <div class="footer-main-grid">
+          <!-- 1. Brand Section -->
+          <div class="footer-brand-col">
+            <a href="#hero-title" class="brand footer-brand" id="footer-brand-link">
+              <div class="brand-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  <path d="M8 11h6"></path>
+                  <path d="M11 8v6"></path>
+                </svg>
+              </div>
+              <div class="brand-text">
+                <span class="brand-title">Dev-Detective</span>
+                <span class="brand-badge">GITHUB EXPLORER</span>
+              </div>
+            </a>
+            <p class="footer-tagline">Explore developers. Compare their impact.</p>
+            <p class="footer-supporting-text">A small tool built to explore the people and projects behind GitHub profiles.</p>
+            <div class="footer-author-badge">
+              <span class="author-dot" aria-hidden="true"></span>
+              <span>Developed by Vinayak Sharma</span>
+            </div>
+          </div>
+
+          <!-- 2. Quick Navigation Section -->
+          <nav class="footer-nav-col" aria-label="Footer Quick Navigation">
+            <h3 class="footer-heading">Quick Navigation</h3>
+            <ul class="footer-links-list">
+              <li>
+                <button type="button" class="footer-link-btn" id="footer-link-search">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <span>Profile Search</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="footer-link-btn" id="footer-link-battle">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                  <span>Battle Mode</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="footer-link-btn" id="footer-link-repos">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                  <span>Latest Repositories</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="footer-link-btn" id="footer-link-top">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                  </svg>
+                  <span>Back to Top</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- 3. Developer & Technology Section -->
+          <div class="footer-tech-col">
+            <h3 class="footer-heading">Architecture &amp; Data</h3>
+            <p class="footer-tech-line">Built with HTML, CSS &amp; JavaScript</p>
+            <p class="footer-tech-line">Powered by the GitHub REST API</p>
+            <div class="footer-pills">
+              <span class="footer-pill">Native Fetch</span>
+              <span class="footer-pill">No Frameworks</span>
+              <span class="footer-pill">Zero Dependencies</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Bottom Copyright Bar -->
+        <div class="footer-bottom-bar">
+          <p class="footer-copyright">
+            &copy; <span id="current-year"></span> Dev-Detective. Built for developers, by developers.
+          </p>
+          <div class="footer-attribution">
+            <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener noreferrer" class="footer-api-link">
+              <span>GitHub REST API Docs</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
