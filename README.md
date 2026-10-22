@@ -84,11 +84,13 @@ The primary objective of Sprint 03 is to master real-world asynchronous JavaScri
 
 ```
 Sprint 3/
-├── index.html        # Main HTML structure, layout, semantic tags, and ARIA attributes
-├── styles.css        # Complete CSS design system, dark dashboard theme, responsive rules
-├── script.js         # Core application logic, Fetch API services, DOM renderers, Battle Mode
+├── index.html        # Semantic HTML5 structure, layout, and ARIA attributes
+├── styles.css        # Compact CSS design system & dark developer-dashboard theme (<260 lines)
+├── api.js            # GitHub API service functions and star calculation via reduce()
+├── ui.js             # Presentation helpers, date/number formatting, and DOM renderers
+├── script.js         # Main event listeners, form handlers, and mode switching
 ├── README.md         # Comprehensive project documentation and evaluation guide
-├── Prompts.md        # Transparent record of AI engineering prompts and iterations
+├── Prompts.md        # AI assistance log focusing on logic, CSS, and error solving
 ├── QA-DEMO.md        # Script for the mandatory 2-minute video presentation
 └── .gitignore        # Standard Git exclusion file
 ```
