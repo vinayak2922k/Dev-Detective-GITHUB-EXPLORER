@@ -1,0 +1,17 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node / Scratch (if any tooling is used locally)
+node_modules/
+*.log
+
+# Antigravity Brain / Temp logs
+.system_generated/

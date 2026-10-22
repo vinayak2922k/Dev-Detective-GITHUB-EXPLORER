@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dev-Detective — Modern GitHub Profile Explorer and Developer Battle Mode. Explore profiles, inspect repositories, and compare developer impact.">
+  <meta name="theme-color" content="#0a0d14">
+  <title>Dev-Detective | GitHub Profile Explorer</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Background Glow Accents -->
+  <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-container">
+        <div class="brand">
+          <div class="brand-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <path d="M8 11h6"></path>
+              <path d="M11 8v6"></path>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Dev-Detective</span>
+            <span class="brand-badge">GITHUB EXPLORER</span>
+          </div>
+        </div>
+
+        <!-- Mode Navigation Tabs -->
+        <nav class="mode-navigation" aria-label="Application modes">
+          <button type="button" id="tab-search" class="nav-tab active" aria-selected="true" role="tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Profile Search</span>
+          </button>
+          <button type="button" id="tab-battle" class="nav-tab" aria-selected="false" role="tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            <span>Battle Mode</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content">
+      
+      <!-- ============================================== -->
+      <!-- VIEW 1: PROFILE SEARCH VIEW                   -->
+      <!-- ============================================== -->
+      <section id="view-search" class="view-section active" aria-labelledby="hero-title">
+        <!-- Hero Introduction -->
+        <div class="hero-intro">
+          <h1 id="hero-title" class="hero-title">Every developer has a story.</h1>
+          <p class="hero-subtitle">
+            Look beyond the username. Explore profiles, discover repositories, and compare the work behind the stars.
+          </p>
+        </div>
+
+        <!-- Search Card -->
+        <div class="search-card">
+          <form id="search-form" class="search-form" novalidate>
+            <div class="search-input-wrapper">
+              <span class="search-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </span>
+              <input 
+                type="text" 
+                id="search-input" 
+                class="search-input" 
+                placeholder="Search GitHub username… (e.g. octocat)" 
+                autocomplete="off" 
+                spellcheck="false"
+                aria-label="GitHub username"
+                aria-describedby="search-validation-msg"
+              >
+              <button type="button" id="search-clear-btn" class="search-clear-btn hidden" aria-label="Clear search input">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <button type="submit" id="search-submit-btn" class="btn btn-primary search-btn">
+              <span class="btn-text">Search</span>
+              <span class="btn-spinner hidden" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <!-- Inline Validation Message -->
+          <div id="search-validation-msg" class="validation-msg hidden" role="alert"></div>
+
+          <!-- Quick Example Chips -->
+          <div class="search-chips" aria-label="Quick search suggestions">
+            <span class="chips-label">Try searching:</span>
+            <div class="chips-list">
+              <button type="button" class="chip-btn" data-username="octocat">octocat</button>
+              <button type="button" class="chip-btn" data-username="torvalds">torvalds</button>
+              <button type="button" class="chip-btn" data-username="gaearon">gaearon</button>
+              <button type="button" class="chip-btn" data-username="sindresorhus">sindresorhus</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Announcement Area for Screen Readers -->
+        <div id="aria-status-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+        <!-- Global Search Loading State -->
+        <div id="search-loading" class="state-container hidden" aria-live="polite">
+          <div class="loader-spinner"></div>
+          <p class="state-title">Fetching developer profile…</p>
+          <p class="state-desc">Querying GitHub REST API endpoint</p>
+        </div>
+
+        <!-- Global Search Error State (404, 403, Network, etc.) -->
+        <div id="search-error" class="state-container state-error hidden" role="region" aria-live="assertive">
+          <div class="state-icon" id="error-icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h2 class="state-title" id="error-title">Developer not found.</h2>
+          <p class="state-desc" id="error-desc">Check the username and try again.</p>
+          <div class="error-actions">
+            <button type="button" id="error-retry-btn" class="btn btn-secondary">Try Again</button>
+          </div>
+        </div>
+
+        <!-- Initial Welcome State -->
+        <div id="search-initial" class="state-container state-initial">
+          <div class="initial-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </div>
+          <h2 class="state-title">Ready to explore</h2>
+          <p class="state-desc">Enter any valid GitHub username above or pick one of the suggestions to inspect their profile statistics and latest repositories.</p>
+        </div>
+
+        <!-- Search Results Container (Profile + Repositories) -->
+        <div id="search-result-container" class="search-result-container hidden">
+          <!-- Profile Card Mount Point -->
+          <div id="profile-card-mount"></div>
+
+          <!-- Repositories Section Mount Point -->
+          <section class="repos-section" aria-labelledby="repos-heading">
+            <div class="repos-header">
+              <h2 id="repos-heading" class="section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Latest repositories</span>
+              </h2>
+              <span id="repos-count-badge" class="badge-subtle">Top 5 by latest update</span>
+            </div>
+
+            <!-- Repositories Loading Indicator -->
+            <div id="repos-loading" class="state-container repos-state hidden" aria-live="polite">
+              <div class="loader-spinner spinner-small"></div>
+              <p class="state-desc">Loading repository activity…</p>
+            </div>
+
+            <!-- Repositories Error State -->
+            <div id="repos-error" class="state-container repos-state state-error-subtle hidden" role="alert">
+              <p class="state-desc" id="repos-error-desc">Failed to load repositories. Profile details remain intact.</p>
+            </div>
+
+            <!-- Repositories Empty State -->
+            <div id="repos-empty" class="state-container repos-state hidden">
+              <p class="state-desc">This user has no public repositories to show.</p>
+            </div>
+
+            <!-- Repositories Grid Container -->
+            <div id="repos-grid" class="repos-grid"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 2: BATTLE MODE VIEW                       -->
+      <!-- ============================================== -->
+      <section id="view-battle" class="view-section" aria-labelledby="battle-title" hidden>
+        <!-- Battle Hero Introduction -->
+        <div class="hero-intro">
+          <div class="battle-badge">
+            <span class="battle-pulse" aria-hidden="true"></span>
+            <span>HEAD-TO-HEAD BENCHMARK</span>
+          </div>
+          <h1 id="battle-title" class="hero-title">Developer Battle Mode</h1>
+          <p class="hero-subtitle">
+            Compare two GitHub developers by their total repository stars. Summed directly across their public repositories using <code>reduce()</code>.
+          </p>
+        </div>
+
+        <!-- Battle Inputs Card -->
+        <div class="battle-form-card">
+          <form id="battle-form" class="battle-form" novalidate>
+            <div class="battle-inputs-row">
+              <!-- Developer A Input -->
+              <div class="battle-input-group">
+                <label for="battle-user-a" class="battle-label">
+                  <span class="player-dot player-a-dot" aria-hidden="true"></span>
+                  <span>Developer A</span>
+                </label>
+                <div class="search-input-wrapper">
+                  <span class="search-icon" aria-hidden="true">@</span>
+                  <input 
+                    type="text" 
+                    id="battle-user-a" 
+                    class="search-input" 
+                    placeholder="e.g. torvalds" 
+                    autocomplete="off" 
+                    spellcheck="false"
+                    aria-label="Developer A username"
+                  >
+                </div>
+              </div>
+
+              <!-- VS Badge Divider -->
+              <div class="battle-vs-badge" aria-hidden="true">
+                <span>VS</span>
+              </div>
+
+              <!-- Developer B Input -->
+              <div class="battle-input-group">
+                <label for="battle-user-b" class="battle-label">
+                  <span class="player-dot player-b-dot" aria-hidden="true"></span>
+                  <span>Developer B</span>
+                </label>
+                <div class="search-input-wrapper">
+                  <span class="search-icon" aria-hidden="true">@</span>
+                  <input 
+                    type="text" 
+                    id="battle-user-b" 
+                    class="search-input" 
+                    placeholder="e.g. gaearon" 
+                    autocomplete="off" 
+                    spellcheck="false"
+                    aria-label="Developer B username"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Inline Battle Validation Message -->
+            <div id="battle-validation-msg" class="validation-msg hidden" role="alert"></div>
+
+            <!-- Action Row -->
+            <div class="battle-actions-row">
+              <div class="battle-presets">
+                <span class="chips-label">Preset matchups:</span>
+                <button type="button" class="chip-btn battle-preset-btn" data-user-a="gaearon" data-user-b="yyx990803">Dan Abramov vs Evan You</button>
+                <button type="button" class="chip-btn battle-preset-btn" data-user-a="octocat" data-user-b="github">Octocat vs GitHub</button>
+              </div>
+
+              <button type="submit" id="battle-submit-btn" class="btn btn-primary battle-btn">
+                <span class="btn-text">Compare Developers</span>
+                <span class="btn-spinner hidden" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Battle Loading State -->
+        <div id="battle-loading" class="state-container hidden" aria-live="polite">
+          <div class="loader-spinner"></div>
+          <p class="state-title" id="battle-loading-title">Initiating Developer Battle…</p>
+          <p class="state-desc" id="battle-loading-desc">Executing parallel requests via <code>Promise.all()</code></p>
+        </div>
+
+        <!-- Battle Error State -->
+        <div id="battle-error" class="state-container state-error hidden" role="region" aria-live="assertive">
+          <div class="state-icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h2 class="state-title" id="battle-error-title">Comparison Failed</h2>
+          <p class="state-desc" id="battle-error-desc">One or both users could not be retrieved.</p>
+        </div>
+
+        <!-- Battle Results Mount Point -->
+        <div id="battle-result-container" class="battle-result-container hidden"></div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-container">
+        <p class="footer-copy">
+          <strong>Dev-Detective</strong> — Prodesk IT Sprint 03 Assignment: “The API Hunter”. Built with semantic HTML5, modern CSS3, and native JavaScript Fetch API.
+        </p>
+        <div class="footer-meta">
+          <span class="meta-item">No Frameworks</span>
+          <span class="meta-divider">•</span>
+          <span class="meta-item">No Dependencies</span>
+          <span class="meta-divider">•</span>
+          <span class="meta-item">Native Fetch &amp; Promises</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Main JavaScript Application Logic -->
+  <script src="script.js?v=2"></script>
+</body>
+</html>
