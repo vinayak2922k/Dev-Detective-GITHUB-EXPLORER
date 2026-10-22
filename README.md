@@ -261,7 +261,7 @@ To deploy Dev-Detective live on **GitHub Pages**:
 
 | Profile Search & Repositories | Head-to-Head Battle Mode |
 | :---: | :---: |
-| ![Profile Search](screenshot-search.png) | ![Battle Mode](screenshot-battle.png) |
+| ![Profile Search](Screenshot/SearchName.png) | ![Battle Mode](Screenshot/BattleMode.png) |
 
 ---
 
