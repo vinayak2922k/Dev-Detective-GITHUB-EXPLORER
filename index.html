@@ -40,16 +40,16 @@
         </div>
 
         <!-- Mode Navigation Tabs -->
-        <nav class="mode-navigation" aria-label="Application modes">
-          <button type="button" id="tab-search" class="nav-tab active" aria-selected="true" role="tab">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <nav class="mode-navigation" role="tablist" aria-label="Application modes">
+          <button type="button" id="tab-search" class="nav-tab active" aria-selected="true" aria-controls="view-search" role="tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
             <span>Profile Search</span>
           </button>
-          <button type="button" id="tab-battle" class="nav-tab" aria-selected="false" role="tab">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button type="button" id="tab-battle" class="nav-tab" aria-selected="false" aria-controls="view-battle" role="tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
             <span>Battle Mode</span>
@@ -64,7 +64,7 @@
       <!-- ============================================== -->
       <!-- VIEW 1: PROFILE SEARCH VIEW                   -->
       <!-- ============================================== -->
-      <section id="view-search" class="view-section active" aria-labelledby="hero-title">
+      <section id="view-search" class="view-section active" role="tabpanel" aria-labelledby="tab-search">
         <!-- Hero Introduction -->
         <div class="hero-intro">
           <h1 id="hero-title" class="hero-title">Every developer has a story.</h1>
@@ -201,7 +201,7 @@
       <!-- ============================================== -->
       <!-- VIEW 2: BATTLE MODE VIEW                       -->
       <!-- ============================================== -->
-      <section id="view-battle" class="view-section" aria-labelledby="battle-title" hidden>
+      <section id="view-battle" class="view-section hidden" role="tabpanel" aria-labelledby="tab-battle" hidden>
         <!-- Battle Hero Introduction -->
         <div class="hero-intro">
           <div class="battle-badge">

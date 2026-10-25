@@ -44,16 +44,42 @@ const battleResultContainer = document.getElementById('battle-result-container')
 // Mode Switcher
 function switchMode(mode) {
   const isSearch = mode === 'search';
-  tabSearch.classList.toggle('active', isSearch);
-  tabBattle.classList.toggle('active', !isSearch);
-  viewSearch.classList.toggle('active', isSearch);
-  viewSearch.hidden = !isSearch;
-  viewBattle.classList.toggle('active', !isSearch);
-  viewBattle.hidden = isSearch;
+
+  // Update tabs active state & accessibility
+  if (tabSearch) {
+    tabSearch.classList.toggle('active', isSearch);
+    tabSearch.setAttribute('aria-selected', isSearch ? 'true' : 'false');
+  }
+  if (tabBattle) {
+    tabBattle.classList.toggle('active', !isSearch);
+    tabBattle.setAttribute('aria-selected', !isSearch ? 'true' : 'false');
+  }
+
+  // Update view sections: ensure class, attribute, and visibility are synchronized
+  if (viewSearch) {
+    viewSearch.classList.toggle('active', isSearch);
+    viewSearch.classList.toggle('hidden', !isSearch);
+    viewSearch.hidden = !isSearch;
+  }
+  if (viewBattle) {
+    viewBattle.classList.toggle('active', !isSearch);
+    viewBattle.classList.toggle('hidden', isSearch);
+    viewBattle.hidden = isSearch;
+  }
+
+  // Smooth scroll to top of view
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Accessibility focus management
+  if (isSearch) {
+    if (searchInput) setTimeout(() => searchInput.focus(), 60);
+  } else {
+    if (battleUserA) setTimeout(() => battleUserA.focus(), 60);
+  }
 }
 
-tabSearch.addEventListener('click', () => switchMode('search'));
-tabBattle.addEventListener('click', () => switchMode('battle'));
+if (tabSearch) tabSearch.addEventListener('click', () => switchMode('search'));
+if (tabBattle) tabBattle.addEventListener('click', () => switchMode('battle'));
 
 // Search Handler
 async function handleSearch(rawUser) {
@@ -242,4 +268,19 @@ document.getElementById('footer-link-repos')?.addEventListener('click', () => {
 document.getElementById('footer-link-top')?.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+// URL Hash routing support (e.g. #battle, #search)
+function checkInitialHash() {
+  const hash = (window.location.hash || '').toLowerCase();
+  if (hash === '#battle' || hash === '#view-battle') {
+    switchMode('battle');
+  } else if (hash === '#search' || hash === '#view-search') {
+    switchMode('search');
+  }
+}
+
+window.addEventListener('hashchange', checkInitialHash);
+if (window.location.hash) {
+  checkInitialHash();
+}
 

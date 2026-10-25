@@ -67,7 +67,7 @@ body {
 
 .app-wrapper { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-.hidden { display: none !important; }
+[hidden], .hidden { display: none !important; }
 
 /* Header */
 .app-header {
@@ -93,17 +93,21 @@ body {
 /* Navigation Tabs */
 .mode-navigation { display: flex; background: var(--bg-canvas); border: 1px solid var(--border-subtle); border-radius: var(--radius-full); padding: 4px; gap: 4px; }
 .nav-tab {
-  display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1rem; border: none;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.45rem 1.15rem; border: none;
   background: transparent; color: var(--text-secondary); font-family: var(--font-sans);
   font-size: 0.85rem; font-weight: 500; border-radius: var(--radius-full); cursor: pointer; transition: 0.15s;
+  user-select: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
 .nav-tab:hover { color: var(--text-primary); }
-.nav-tab.active { background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-medium); }
+.nav-tab.active { background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-medium); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); }
 .nav-tab.active svg { color: var(--accent-cyan); }
 
 /* Main Content & Hero */
 .main-content { flex: 1; max-width: var(--container-max); width: 100%; margin: 0 auto; padding: 2.25rem 1.5rem 4rem; }
 .view-section { display: flex; flex-direction: column; gap: 1.75rem; animation: fadeIn 0.25s ease-out; }
+.view-section[hidden],
+.view-section.hidden,
+.view-section:not(.active) { display: none !important; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
 .hero-intro { text-align: center; max-width: 680px; margin: 0 auto; }
@@ -315,7 +319,9 @@ body {
 @media (max-width: 768px) {
   .hero-title { font-size: 1.75rem; }
   .header-container { flex-direction: column; align-items: stretch; gap: 0.75rem; }
-  .brand, .mode-navigation { justify-content: center; }
+  .brand { justify-content: center; }
+  .mode-navigation { width: 100%; max-width: 420px; margin: 0 auto; display: flex; }
+  .nav-tab { flex: 1; min-height: 44px; padding: 0.55rem 0.75rem; }
   .search-form { flex-direction: column; }
   .btn { width: 100%; }
   .profile-header { flex-direction: column; align-items: center; text-align: center; }
